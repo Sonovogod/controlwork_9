@@ -1,0 +1,61 @@
+@model controlWork_9.ViewModels.Users.ProfileViewModel
+
+@{
+    ViewBag.Title = "Профиль";
+    Layout = "_Layout";
+}
+<div class="container text-center">
+  <div class="row justify-content-start">
+    <div class="col-8">
+      <div class="text-center">
+        <div class="row justify-content-start">
+          <div class="col-4">
+            <div class="w-100 m-2 border border-1 border-dark rounded-circle">
+              <img src="@Model.UserProfile.Avatar" class="card-img-top rounded-circle p-1" alt="@Model.UserProfile.Name">
+            </div>
+          </div>
+          <div class="col-8 my-2">
+            <div class="row">
+              <div class="col-4 text-start mx-2">
+                <p class="text-secondary">Номер счета:</p>
+              </div>
+              <div class="col-4 text-end mx-2">
+                <p>@Model.UserProfile.Login</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4 text-start mx-2">
+                <p class="text-secondary">Остаток:</p>
+              </div>
+              <div class="col-4 text-end mx-2">
+                <p>@Model.UserProfile.Balance KZT</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4 text-start mx-2">
+                <p class="text-secondary">Почта:</p>
+              </div>
+              <div class="col-4 text-end mx-2">
+                <p>@Model.UserProfile.Email</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col text-end mx-2 my-2 align-self-start">
+      <div class="my-2">
+        <form method="post" asp-antiforgery="true" asp-action="LogOff" asp-controller="Account">
+          <button type="submit" class="btn btn-outline-dark">Выход</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@section Scripts
+{
+  @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+  }
+}
+
