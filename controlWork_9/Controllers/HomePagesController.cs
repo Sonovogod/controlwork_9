@@ -6,6 +6,7 @@ namespace controlWork_9.Controllers;
 public class HomePagesController : Controller
 {
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult Main()
     {
         return View();

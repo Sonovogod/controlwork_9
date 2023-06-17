@@ -1,6 +1,8 @@
 using controlWork_9.Models;
 using controlWork_9.Services.TransactionsService.Abstract;
 using controlWork_9.Services.UsersServices.Abstracts;
+using controlWork_9.ViewModels.Accounts;
+using Microsoft.EntityFrameworkCore;
 
 namespace controlWork_9.Services.TransactionsService;
 
@@ -38,5 +40,22 @@ public class TransactionService : ITransactionService
         }
 
         return _db.Users.Any(x => x.UserName.Equals(accountNumber));
+    }
+
+    public async Task<bool> TopUpAccount(TopUpAccountViewModel model)
+    {
+        try
+        {
+            User user = await _db.Users.FirstOrDefaultAsync(x=> x.UserName.Equals(model.AccountNumber));
+            user.Balance += model.Summ;
+            _db.Users.Update(user);
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

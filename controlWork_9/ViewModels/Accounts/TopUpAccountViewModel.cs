@@ -8,6 +8,7 @@ public class TopUpAccountViewModel
     public string? UseName { get; set; }
     
     [Display(Name = "Сумма")]
+    [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Только положительные числа")]
     public decimal Summ { get; set; }
     
     [Display(Name = "Номер счета")]
