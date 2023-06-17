@@ -10,7 +10,7 @@ public class PayProviderViewModel
     [Display(Name = "Сумма")]
     [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Только положительные числа")]
     [Required(ErrorMessage = "Поле не может быть пустым")]
-    [Remote("CheckExisMoney", "TransactionsValidation", ErrorMessage = "Недостаточно средств", AdditionalFields = "Summ")]
+    [Remote("CheckExistMoney", "TransactionsValidation", ErrorMessage = "Недостаточно средств", AdditionalFields = "Summ")]
     public decimal Summ { get; set; }
     
     [Display(Name = "Поставщик услуг")]

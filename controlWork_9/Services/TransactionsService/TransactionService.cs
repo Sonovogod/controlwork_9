@@ -92,4 +92,27 @@ public class TransactionService : ITransactionService
         };
         return model;
     }
+
+    public async Task<bool> PayProvider(PayProviderViewModel? model, string userName)
+    {
+        try
+        {
+            Provider provider = await _db.Providers.FirstOrDefaultAsync(x => x.Id == model.ProviderId);
+            AccountProvider accountProvider = provider.Accounts.FirstOrDefault(x => x.Id == model.AccountProviderId);
+            User? user = await _userService.FindByEmailOrLoginAsync(userName);
+            user.Balance -= model.Summ;
+            accountProvider.Balance += model.Summ;
+
+            _db.Users.Update(user);
+            _db.AccountProviders.Update(accountProvider);
+
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

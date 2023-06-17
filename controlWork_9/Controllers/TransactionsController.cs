@@ -58,10 +58,26 @@ public class TransactionsController : Controller
     
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> PayProviders()
+    public IActionResult PayProviders()
     {
         PayProviderViewModel model = _transactionService.GetAllProviders();
 
         return View(model);
+    }
+    
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> PayProviders(PayProviderViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            bool result = await _transactionService.PayProvider(model, User.Identity.Name);
+            if (result)
+            {
+                return Ok();
+            }
+        }
+
+        return BadRequest();
     }
 }

@@ -10,4 +10,5 @@ public interface ITransactionService
     Task<bool> TopUpAccount(TopUpAccountViewModel model);
     Task<bool> SendMoney(SendMoneyViewModel model);
     PayProviderViewModel GetAllProviders();
+    Task<bool> PayProvider(PayProviderViewModel model, string userName);
 }

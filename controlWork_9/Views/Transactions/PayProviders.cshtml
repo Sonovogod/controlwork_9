@@ -1,0 +1,82 @@
+@model controlWork_9.ViewModels.Providers.PayProviderViewModel
+
+@{
+    ViewBag.Title = "Оплата услуг";
+    Layout = "_Layout";
+}
+<div id="succesMessage" class="bg-success" hidden="hidden">
+  <div class="toast-body">
+    Операция проведена успешно!
+  </div>
+</div>
+@if (Model.Providers.Any())
+{
+  <div class="container text-center">
+    <div class="row justify-content-start">
+      <div class="col-8">
+        <div class="text-center">
+        <div class="row justify-content-start">
+          @foreach (var provider in Model.Providers)
+          {
+            <div class="row mt-2 border border-1">
+              <div class="col-4 text-start mx-2">
+                <p class="text-secondary">@provider.Name</p>
+              </div>
+              <div class="col-4 text-end mx-2">
+                <button class="btn btn-info payFormCallBtn" data-bs-toggle="modal" data-bs-target="#payModal" id="@provider.Id">Оплатить</button>
+              </div>
+            </div>
+          }
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+else
+{
+    <h2>Поставщики услуг еще не добавлены</h2>
+}
+<div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Оплата услуг</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="payBlock">
+          <form>
+            <div class="container">
+              <form method="post" asp-antiforgery="true" enctype="multipart/form-data" id="payForm">
+                <div class="mb-3">
+                  <label for="paySumm" class="form-label" asp-for="Summ"></label>
+                  <input type="text" class="form-control" id="paySumm" asp-for="Summ">
+                  <span class="text-danger" asp-validation-for="Summ"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="accountProviderId" class="form-label" asp-for="AccountProviderId"></label>
+                    <input type="text" class="form-control" id="accountProviderId" asp-for="AccountProviderId">
+                    <span class="text-danger" asp-validation-for="AccountProviderId"></span>
+                  </div>
+                <p class="text-danger mx-2" id="topUpError"></p>
+              </form>
+              <div class="text-danger" asp-validation-summary="All"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="text-danger" id="sendErrors"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSendButton">Закрыть</button>
+        <button type="button" class="btn btn-primary" id="paySummButton">Отправить</button>
+      </div>
+    </div>
+  </div>
+</div>
+@section Scripts
+{
+  @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+  }
+}

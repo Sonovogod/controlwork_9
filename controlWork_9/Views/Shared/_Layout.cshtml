@@ -23,7 +23,7 @@
                         <a class="nav-link text-dark" asp-area="" asp-route-userName="@User.Identity.Name" asp-controller="Profiles" asp-action="Profile">Профиль</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Transactions" asp-action="PayProviders">Опалата услуг</a>
                     </li>
                 </ul>
             </div>
@@ -47,6 +47,7 @@
 <script src="~/js/site.js" asp-append-version="true"></script>
 <script src="~/js/topUpAccount.js" asp-append-version="true"></script>
 <script src="~/js/sendMoney.js" asp-append-version="true"></script>
+<script src="~/js/payProvider.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
