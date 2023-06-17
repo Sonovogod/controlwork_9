@@ -1,0 +1,42 @@
+@model controlWork_9.ViewModels.Accounts.TopUpAccountViewModel
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Пополнение счета</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="editProfileBlock">
+          <form>
+            <div class="container">
+              <form method="post" asp-antiforgery="true" enctype="multipart/form-data" id="sendMoney">
+                <div class="mb-3">
+                  <label for="inputSumm" class="form-label" asp-for="Summ"></label>
+                  <input type="text" class="form-control" id="inputSumm" asp-for="Summ">
+                  <span class="text-danger" asp-validation-for="Summ"></span>
+                </div>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                  <div class="mb-3">
+                    <label for="inputAccountNumber" class="form-label" asp-for="AccountNumber"></label>
+                    <input type="text" class="form-control" id="inputAccountNumber" asp-for="AccountNumber">
+                    <span class="text-danger" asp-validation-for="AccountNumber"></span>
+                  </div>
+                }
+                <input hidden="hidden" asp-for="UseName" value="@Model.UseName" id="inputUserName">
+              </form>
+              <div class="text-danger" asp-validation-summary="All"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="text-danger" id="editErrors"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSendMoneyButton">Закрыть</button>
+        <button type="button" class="btn btn-primary" id="sendMoneyButton">Отправить</button>
+      </div>
+    </div>
+  </div>
+</div>

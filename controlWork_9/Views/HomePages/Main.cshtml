@@ -1,8 +1,43 @@
+@using controlWork_9.ViewModels.Accounts
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model dynamic
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Главная";
     Layout = "_Layout";
 }
+<div class="container text-center">
+  <div class="row justify-content-start">
+    <div class="col-8">
+      <div class="text-center">
+        <div class="row justify-content-start">
+          <div class="col-8 my-2">
+            <div class="row">
+              <div class="col-4 text-start mx-2">
+                <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Пополнить счет</button>
+                @{
+                  string userName = User.Identity.Name;
+                  await Html.RenderPartialAsync("TopUpAccountPartialViewModel", new TopUpAccountViewModel{UseName = userName});
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col text-end mx-2 my-2 align-self-start">
+      <div class="my-2">
+        <form method="post" asp-antiforgery="true" asp-action="LogOff" asp-controller="Account">
+          <button type="submit" class="btn btn-outline-dark">Выход</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@section Scripts
+{
+  @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+  }
+}
 
-<h2>title</h2>

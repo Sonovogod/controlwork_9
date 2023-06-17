@@ -2,6 +2,8 @@ using controlWork_9.Extensions;
 using controlWork_9.Models;
 using controlWork_9.Services.FilesServices;
 using controlWork_9.Services.FilesServices.Abstracts;
+using controlWork_9.Services.TransactionsService;
+using controlWork_9.Services.TransactionsService.Abstract;
 using controlWork_9.Services.UsersServices;
 using controlWork_9.Services.UsersServices.Abstracts;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +33,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IImageProfile, ImageProfile>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 
 var app = builder.Build();
