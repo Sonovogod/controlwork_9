@@ -9,9 +9,10 @@ public class TopUpAccountViewModel
     
     [Display(Name = "Сумма")]
     [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Только положительные числа")]
+    [Required(ErrorMessage = "Поле не может быть пустым")]
     public decimal Summ { get; set; }
     
     [Display(Name = "Номер счета")]
-    [Remote("CheckExistCurrency", "TransactionsValidation", ErrorMessage = "Такой лицевой счет уже используется", AdditionalFields = "AccountNumber, UseName")]
+    [Remote("CheckExistCurrency", "TransactionsValidation", ErrorMessage = "Лицевой счет не найден", AdditionalFields = "AccountNumber, UseName")]
     public string? AccountNumber { get; set; }
 }

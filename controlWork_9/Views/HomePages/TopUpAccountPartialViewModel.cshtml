@@ -26,6 +26,7 @@
                   </div>
                 }
                 <input hidden="hidden" asp-for="UseName" value="@Model.UseName" id="inputUserName">
+                <p class="text-danger mx-2" id="topUpError"></p>
               </form>
               <div class="text-danger" asp-validation-summary="All"></div>
             </div>

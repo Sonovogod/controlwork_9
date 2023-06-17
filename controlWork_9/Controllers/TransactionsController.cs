@@ -21,6 +21,10 @@ public class TransactionsController : Controller
     {
         if (ModelState.IsValid)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                model.AccountNumber = User.Identity.Name;
+            }
             bool result = await _transactionService.TopUpAccount(model);
             if (result)
             {
