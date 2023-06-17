@@ -1,7 +1,9 @@
+using controlWork_9.Extensions;
 using controlWork_9.Models;
 using controlWork_9.Services.TransactionsService.Abstract;
 using controlWork_9.Services.UsersServices.Abstracts;
 using controlWork_9.ViewModels.Accounts;
+using controlWork_9.ViewModels.Providers;
 using Microsoft.EntityFrameworkCore;
 
 namespace controlWork_9.Services.TransactionsService;
@@ -78,5 +80,16 @@ public class TransactionService : ITransactionService
         }
 
         return true;
+    }
+
+    public PayProviderViewModel GetAllProviders()
+    {
+        List<Provider> providers = _db.Providers.Include(x => x.Accounts).ToList();
+
+        PayProviderViewModel model = new PayProviderViewModel()
+        {
+            Providers = providers.MapToPayProviderViewModels()
+        };
+        return model;
     }
 }

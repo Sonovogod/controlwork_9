@@ -1,5 +1,6 @@
 using controlWork_9.Services.TransactionsService.Abstract;
 using controlWork_9.ViewModels.Accounts;
+using controlWork_9.ViewModels.Providers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,6 @@ public class TransactionsController : Controller
     
     [HttpPost]
     [ValidateAntiForgeryToken]
-    [AllowAnonymous]
     public async Task<IActionResult> SendMoney(SendMoneyViewModel model)
     {
         if (ModelState.IsValid)
@@ -54,5 +54,14 @@ public class TransactionsController : Controller
         }
 
         return BadRequest("Произошла ошибка при переводе");
+    }
+    
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> PayProviders()
+    {
+        PayProviderViewModel model = _transactionService.GetAllProviders();
+
+        return View(model);
     }
 }

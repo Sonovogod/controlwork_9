@@ -19,4 +19,11 @@ public class TransactionsValidationController : Controller
     [AcceptVerbs("GET", "POST")]
     public async Task<bool> CheckExistCurrency(string accountNumber, string userName)
         => await _transactionService.CheckCurrency(accountNumber, userName);
+
+    [AcceptVerbs("GET", "POST")]
+    public async Task<bool> CheckExisMoney(decimal summ)
+    {
+        string userName = User.Identity.Name;
+        return await _transactionService.CheckSumm(summ, userName);
+    }
 }
