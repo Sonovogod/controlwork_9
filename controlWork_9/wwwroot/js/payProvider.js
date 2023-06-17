@@ -1,7 +1,9 @@
 $(document).ready(() => {
+    var providerId
     $('.payFormCallBtn').on('click', function (){
-        const providerId = $(this).attr('id');
-        
+         providerId = $(this).attr('id');
+    })
+    
     $('#paySummButton').on('click',function (event){
         event.preventDefault();
         const paySumm = $('#paySumm').val();
@@ -31,5 +33,5 @@ $(document).ready(() => {
             }
         })
     })
-    })
+    
 });

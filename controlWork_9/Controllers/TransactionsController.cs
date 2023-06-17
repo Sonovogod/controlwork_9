@@ -78,6 +78,6 @@ public class TransactionsController : Controller
             }
         }
 
-        return BadRequest();
+        return BadRequest("Ошибка при оплате проверьте правильность введеного лицевого счета");
     }
 }
