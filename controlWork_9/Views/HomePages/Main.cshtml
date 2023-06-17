@@ -19,6 +19,12 @@
                   string userName = User.Identity.Name;
                   await Html.RenderPartialAsync("TopUpAccountPartialViewModel", new TopUpAccountViewModel{UseName = userName});
                 }
+                @if (User.Identity.IsAuthenticated)
+                {
+                  <button class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#sendModal">Перевести деньги</button>
+                  userName = User.Identity.Name;
+                    await Html.RenderPartialAsync("SendMoneyPartialView", new SendMoneyViewModel(){UserName = userName});
+                }
               </div>
             </div>
           </div>

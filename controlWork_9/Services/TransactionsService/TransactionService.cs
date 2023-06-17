@@ -58,4 +58,25 @@ public class TransactionService : ITransactionService
 
         return true;
     }
+
+    public async Task<bool> SendMoney(SendMoneyViewModel model)
+    {
+        try
+        {
+            User sender = await _db.Users.FirstOrDefaultAsync(x=> x.UserName.Equals(model.UserName));
+            User receiver = await _db.Users.FirstOrDefaultAsync(x=> x.UserName.Equals(model.AccountNumber));
+            
+            sender.Balance -= model.Summ;
+            receiver.Balance += model.Summ;
+            _db.Users.Update(sender);
+            _db.Users.Update(receiver);
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

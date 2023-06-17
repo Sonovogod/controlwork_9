@@ -34,4 +34,25 @@ public class TransactionsController : Controller
 
         return BadRequest("Произошла ошибка при пополнеии счета");
     }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [AllowAnonymous]
+    public async Task<IActionResult> SendMoney(SendMoneyViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            if (User.Identity.Name.Equals(model.AccountNumber))
+            {
+                return BadRequest("Нельзя перевести на свой же текущий счет");
+            }
+            bool result = await _transactionService.SendMoney(model);
+            if (result)
+            {
+                return Ok("Операция успешно проведена");
+            }
+        }
+
+        return BadRequest("Произошла ошибка при переводе");
+    }
 }
